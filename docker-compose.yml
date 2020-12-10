@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  youtube_upload_audio_bot:
+    build:
+      context: .
+    restart: always
+    environment:
+      - BOT_SECRET=${BOT_SECRET}
