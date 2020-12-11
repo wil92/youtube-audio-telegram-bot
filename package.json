@@ -4,6 +4,7 @@
   "description": "telegram bot for upload audios from youtube videos",
   "main": "main.js",
   "scripts": {
+    "start": "./run.sh",
     "test": "mocha --ui bdd ./tests --recursive"
   },
   "author": "wil92",
