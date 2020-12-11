@@ -14,6 +14,6 @@ describe('objectToQueryParams', () => {
 
     it('should get a valid query params with an array example', () => {
         expect(objectToQueryParams({arr: ['some', 'that'], example: 'that'}))
-            .to.equal('?arr=some,that&example=that');
+            .to.equal('?arr=["some","that"]&example=that');
     });
 });

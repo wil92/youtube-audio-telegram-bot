@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "description": "telegram bot for upload audios from youtube videos",
   "main": "main.js",
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --ui bdd ./tests --recursive"
   },
   "author": "wil92",
   "license": "ISC",

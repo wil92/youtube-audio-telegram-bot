@@ -5,10 +5,10 @@ const expect = chai.expect;
 
 describe('arrayToQuery', () => {
     it('should get a valid list', () => {
-        expect(arrayToQuery(['some', 'that'])).to.equal('some,that');
+        expect(arrayToQuery(['some', 'that'])).to.equal('["some","that"]');
     });
 
     it('should return an empty string', () => {
-        expect(arrayToQuery()).to.equal('');
+        expect(arrayToQuery()).to.equal('[]');
     });
 });
