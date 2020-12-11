@@ -8,8 +8,21 @@ const config = require('./lib/telegram/config');
 
 let markedPost = new Set();
 
-function getUpdates() {
-    return telegram.getUpdates({limit: 100, allowed_updates: ['channel_post']});
+function getUpdates(prev = [], options = {limit: 100, allowed_updates: ['channel_post']}) {
+    return telegram.getUpdates(options)
+        .then(updates => {
+            if (updates.result && Array.isArray(updates.result)) {
+                const results = [...prev, ...updates.result];
+                if (updates.result.length === 100) {
+                    return getUpdates(results, {
+                        ...options,
+                        offset: updates.result[updates.result.length - 1].update_id + 1
+                    });
+                }
+                return results;
+            }
+            return prev;
+        });
 }
 
 function uploadAudio(audioName, chatId) {
@@ -29,7 +42,7 @@ function getChatId(elem) {
 }
 
 function downloadYoutubeVideo(elem, options = '') {
-    const { exec } = require("child_process");
+    const {exec} = require("child_process");
     return new Promise((resolve, reject) => {
         exec(`youtube-dl ${options} ${getMessageText(elem)}`, (error, stdout, stderr) => {
             if (error) {
@@ -48,36 +61,32 @@ function checkYoutubeLink(elem) {
         (elem.message && isYoutubeLink(elem.message.text));
 }
 
-function process () {
+function process() {
     getUpdates().then(res => {
-        if (Array.isArray(res.result)) {
-            const tmpMarkedPost = new Set();
-            res.result.forEach(elem => {
-                tmpMarkedPost.add(elem.update_id);
-                if (checkYoutubeLink(elem) && !markedPost.has(elem.update_id)) {
-                    downloadYoutubeVideo(elem, "-x --audio-format mp3 --audio-quality 7 -q")
-                        .then(() => downloadYoutubeVideo(elem, "--get-filename"))
-                        .then(fileName => {
-                            fileName = toMP3(fileName);
-                            console.log(fileName);
-                            return uploadAudio(fileName, getChatId(elem)).then(() => fileName);
-                        })
-                        .then(fileName => removeAudio(`${__dirname}/${fileName}`));
-                }
-            });
-            markedPost = tmpMarkedPost;
-        }
+        const tmpMarkedPost = new Set();
+        res.forEach(elem => {
+            tmpMarkedPost.add(elem.update_id);
+            if (checkYoutubeLink(elem) && !markedPost.has(elem.update_id)) {
+                downloadYoutubeVideo(elem, '-x --audio-format mp3 --audio-quality 7 -q')
+                    .then(() => downloadYoutubeVideo(elem, '--get-filename'))
+                    .then(fileName => {
+                        fileName = toMP3(fileName);
+                        console.log(fileName);
+                        return uploadAudio(fileName, getChatId(elem)).then(() => fileName);
+                    })
+                    .then(fileName => removeAudio(`${__dirname}/${fileName}`));
+            }
+        });
+        markedPost = tmpMarkedPost;
     });
     setTimeout(process, config.updateInterval);
 }
 
 getUpdates().then(res => {
-    if (Array.isArray(res.result)) {
-        res.result.forEach(elem => {
-            if (checkYoutubeLink(elem)) {
-                markedPost.add(elem.update_id);
-            }
-        })
-    }
+    res.forEach(elem => {
+        if (checkYoutubeLink(elem)) {
+            markedPost.add(elem.update_id);
+        }
+    });
     setTimeout(process, config.updateInterval);
 });
