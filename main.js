@@ -41,6 +41,10 @@ function getChatId(elem) {
     return elem.channel_post ? elem.channel_post.chat.id : elem.message.chat.id;
 }
 
+function getMessageId(elem) {
+    return elem.channel_post ? elem.channel_post.message_id : elem.message.message_id;
+}
+
 function downloadYoutubeVideo(elem, options = '') {
     const {exec} = require("child_process");
     return new Promise((resolve, reject) => {
@@ -62,24 +66,30 @@ function checkYoutubeLink(elem) {
 }
 
 function process() {
+    const tmpMarkedPost = new Set();
     getUpdates().then(res => {
-        const tmpMarkedPost = new Set();
-        res.forEach(elem => {
+        return res.reduce((prev, elem) => {
             tmpMarkedPost.add(elem.update_id);
             if (checkYoutubeLink(elem) && !markedPost.has(elem.update_id)) {
-                downloadYoutubeVideo(elem, '-x --audio-format mp3 --audio-quality 7 -q')
+                return prev
+                    .then(() => downloadYoutubeVideo(elem, '-x --audio-format mp3 --audio-quality 7 -q'))
                     .then(() => downloadYoutubeVideo(elem, '--get-filename'))
                     .then(fileName => {
                         fileName = toMP3(fileName);
                         console.log(fileName);
-                        return uploadAudio(fileName, getChatId(elem)).then(() => fileName);
+                        return telegram.deleteMessage({chat_id: getChatId(elem), message_id: getMessageId(elem)})
+                            .then(() => telegram.sendMessage({chat_id: getChatId(elem), text: getMessageText(elem)}))
+                            .then(() => uploadAudio(fileName, getChatId(elem)).then(() => fileName));
                     })
                     .then(fileName => removeAudio(`${__dirname}/${fileName}`));
             }
-        });
+            return prev
+        }, Promise.resolve());
+
+    }).then(() => {
         markedPost = tmpMarkedPost;
+        setTimeout(process, config.updateInterval)
     });
-    setTimeout(process, config.updateInterval);
 }
 
 getUpdates().then(res => {
