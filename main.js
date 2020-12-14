@@ -72,16 +72,16 @@ function process() {
             tmpMarkedPost.add(elem.update_id);
             if (checkYoutubeLink(elem) && !markedPost.has(elem.update_id)) {
                 return prev
-                    .then(() => downloadYoutubeVideo(elem, '-x --audio-format mp3 --audio-quality 7 -q'))
+                    .then(() => downloadYoutubeVideo(elem, '-x --audio-format mp3 --audio-quality 8 -q'))
                     .then(() => downloadYoutubeVideo(elem, '--get-filename'))
                     .then(fileName => {
                         fileName = toMP3(fileName);
                         console.log(fileName);
                         return telegram.deleteMessage({chat_id: getChatId(elem), message_id: getMessageId(elem)})
                             .then(() => telegram.sendMessage({chat_id: getChatId(elem), text: getMessageText(elem)}))
-                            .then(() => uploadAudio(fileName, getChatId(elem)).then(() => fileName));
-                    })
-                    .then(fileName => removeAudio(`${__dirname}/${fileName}`));
+                            .then(() => uploadAudio(fileName, getChatId(elem)))
+                            .then(() => removeAudio(`${__dirname}/${fileName}`));
+                    });
             }
             return prev
         }, Promise.resolve());
