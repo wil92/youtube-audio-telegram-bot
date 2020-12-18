@@ -82,6 +82,8 @@ function process() {
                             .then(() => uploadAudio(fileName, getChatId(elem)))
                             .then(() => removeAudio(`${__dirname}/${fileName}`));
                     }).catch(console.error);
+            } else if(!checkYoutubeLink(elem)) {
+                console.info(`Not valid youtube link in the update number: ${elem.update_id}`);
             }
             return prev
         }, Promise.resolve());
