@@ -81,7 +81,7 @@ function process() {
                             .then(() => telegram.sendMessage({chat_id: getChatId(elem), text: getMessageText(elem)}))
                             .then(() => uploadAudio(fileName, getChatId(elem)))
                             .then(() => removeAudio(`${__dirname}/${fileName}`));
-                    });
+                    }).catch(console.error);
             }
             return prev
         }, Promise.resolve());
