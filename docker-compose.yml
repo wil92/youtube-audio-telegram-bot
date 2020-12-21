@@ -2,6 +2,7 @@ version: "3"
 
 services:
   youtube_upload_audio_bot:
+    container_name: "youtube-audio-bot"
     build:
       context: .
     restart: always

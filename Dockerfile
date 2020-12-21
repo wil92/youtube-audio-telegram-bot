@@ -36,5 +36,4 @@ COPY src/ ./
 # Basic check.
 RUN dumb-init youtube-dl --version
 
-ENTRYPOINT ["node ./src/main.js"]
-CMD ["--help"]
+CMD ["node", "./main.js"]
