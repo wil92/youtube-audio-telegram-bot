@@ -27,16 +27,13 @@ ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
 WORKDIR /downloads
 
-COPY package.json /downloads
-COPY package-lock.json /downloads
+COPY package*.json ./
 
 RUN npm install --production
 
-COPY lib/ /downloads/lib
-COPY main.js /downloads
+COPY src/ ./
 
 # Basic check.
 RUN dumb-init youtube-dl --version
 
-ENTRYPOINT ["node", "main.js"]
-CMD ["--help"]
+CMD ["node", "./main.js"]

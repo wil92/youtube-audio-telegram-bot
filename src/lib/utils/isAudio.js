@@ -1,3 +1,3 @@
 module.exports = function (value = '') {
-    return value.endsWith('.mp3');
-};
+  return value.endsWith('.mp3')
+}

@@ -1,14 +1,14 @@
-const chai = require('chai');
-const arrayToQuery = require('../../lib/utils/arrayToQuery');
+const chai = require('chai')
+const arrayToQuery = require('../../src/lib/utils/arrayToQuery')
 
-const expect = chai.expect;
+const expect = chai.expect
 
-describe('arrayToQuery', () => {
-    it('should get a valid list', () => {
-        expect(arrayToQuery(['some', 'that'])).to.equal('["some","that"]');
-    });
+describe('arrayToQuery', function () {
+  it('should get a valid list', function () {
+    expect(arrayToQuery(['some', 'that'])).to.equal('["some","that"]')
+  })
 
-    it('should return an empty string', () => {
-        expect(arrayToQuery()).to.equal('[]');
-    });
-});
+  it('should return an empty string', function () {
+    expect(arrayToQuery()).to.equal('[]')
+  })
+})
