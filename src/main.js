@@ -1,10 +1,11 @@
-const fs = require('fs')
-const path = require('path')
-const { exec } = require('child_process')
-const telegram = require('./lib/telegram')
-const toMP3 = require('./lib/utils/toMP3')
+const fs = require('fs');
+const path = require('path');
+const { exec } = require('child_process');
 
-const config = require('./lib/telegram/config')
+const telegram = require('./lib/telegram');
+const toMP3 = require('./lib/utils/toMP3');
+const { hasYoutubeLink, extractYoutubeLink } = require('./lib/utils');
+const config = require('./lib/telegram/config');
 
 let markedPost = new Set()
 
@@ -37,18 +38,6 @@ function getMessageText (elem) {
   return elem.channel_post ? elem.channel_post.text : elem.message.text
 }
 
-function hasYoutubeLink (text) {
-  let ytLink = extractYoutubeLink(text);
-  return ytLink !== null;
-}
-
-function extractYoutubeLink (elem) {
-  let re = /((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?/;
-  let text = getMessageText(elem);
-  let result = re.exec(text);
-  return result[0];
-}
-
 function getChatId (elem) {
   return elem.channel_post ? elem.channel_post.chat.id : elem.message.chat.id
 }
@@ -59,7 +48,7 @@ function getMessageId (elem) {
 
 function downloadYoutubeVideo (elem, options = '') {
   return new Promise((resolve, reject) => {
-    let ytLink = extractYoutubeLink(elem);
+    let ytLink = extractYoutubeLink(getMessageText(elem));
     exec(`youtube-dl ${options} ${ytLink}`, (error, stdout, stderr) => {
       if (error) {
         return reject(error)

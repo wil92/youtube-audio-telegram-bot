@@ -3,6 +3,7 @@ module.exports = {
   postMethod: require('./postMethod'),
   deleteMethod: require('./delete'),
   objectToQueryParams: require('./objectToQueryParams'),
-  isYoutubeLink: require('./isYoutubeLink'),
+  hasYoutubeLink: require('./hasYoutubeLink'),
+  extractYoutubeLink: require('./extractYoutubeLink'),
   toReadableSize: require('./toReadableSize')
 }

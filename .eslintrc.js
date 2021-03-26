@@ -16,5 +16,9 @@ module.exports = {
     ecmaVersion: 12
   },
   rules: {
+    "no-tabs": "error",
+    "semi": "error",
+    "no-extra-semi": "error",
+    "semi-style": "error"
   }
 }
