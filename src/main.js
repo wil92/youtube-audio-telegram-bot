@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const { exec } = require('child_process')
 const telegram = require('./lib/telegram')
-const isYoutubeLink = require('./lib/utils/isYoutubeLink')
 const toMP3 = require('./lib/utils/toMP3')
 
 const config = require('./lib/telegram/config')
@@ -38,6 +37,18 @@ function getMessageText (elem) {
   return elem.channel_post ? elem.channel_post.text : elem.message.text
 }
 
+function hasYoutubeLink (text) {
+  let ytLink = extractYoutubeLink(text);
+  return ytLink !== null;
+}
+
+function extractYoutubeLink (elem) {
+  let re = /((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?/;
+  let text = getMessageText(elem);
+  let result = re.exec(text);
+  return result[0];
+}
+
 function getChatId (elem) {
   return elem.channel_post ? elem.channel_post.chat.id : elem.message.chat.id
 }
@@ -48,7 +59,8 @@ function getMessageId (elem) {
 
 function downloadYoutubeVideo (elem, options = '') {
   return new Promise((resolve, reject) => {
-    exec(`youtube-dl ${options} ${getMessageText(elem)}`, (error, stdout, stderr) => {
+    let ytLink = extractYoutubeLink(elem);
+    exec(`youtube-dl ${options} ${ytLink}`, (error, stdout, stderr) => {
       if (error) {
         return reject(error)
       }
@@ -61,8 +73,8 @@ function downloadYoutubeVideo (elem, options = '') {
 }
 
 function checkYoutubeLink (elem) {
-  return (elem.channel_post && isYoutubeLink(elem.channel_post.text)) ||
-        (elem.message && isYoutubeLink(elem.message.text))
+  return (elem.channel_post && hasYoutubeLink(elem.channel_post.text)) ||
+        (elem.message && hasYoutubeLink(elem.message.text))
 }
 
 function process () {
