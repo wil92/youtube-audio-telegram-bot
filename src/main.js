@@ -46,7 +46,9 @@ function extractYoutubeLink (elem) {
   let re = /((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?/;
   let text = getMessageText(elem);
   let result = re.exec(text);
-  return result[0];
+  if (result)
+    return result[0];
+  return null;
 }
 
 function getChatId (elem) {
