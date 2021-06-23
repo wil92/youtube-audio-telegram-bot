@@ -105,10 +105,10 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
 
-#      - name: Deploy project in docker
-#        uses: garygrossgarten/github-action-ssh@release
-#        with:
-#          command: cd ${{ secrets.REMOTE_TARGET }} && ./deploy.sh
-#          host: ${{ secrets.REMOTE_HOST }}
-#          username: ${{ secrets.REMOTE_USER }}
-#          privateKey: ${{ secrets.SERVER_SSH_KEY}}
+      - name: Deploy project in docker
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: cd ${{ secrets.REMOTE_TARGET }} && docker-compose up --build -d
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          privateKey: ${{ secrets.SERVER_SSH_KEY}}
