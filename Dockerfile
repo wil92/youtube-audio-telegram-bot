@@ -31,9 +31,9 @@ COPY package*.json ./
 
 RUN npm install --production
 
-COPY src/ ./
+COPY dist ./dist
 
 # Basic check.
 RUN dumb-init youtube-dl --version
 
-CMD ["node", "./main.js"]
+CMD ["node", "./dist/main.js"]
