@@ -18,10 +18,14 @@ jobs:
       - name: Cache project node-modules
         uses: actions/cache@v2
         with:
-          path: |
-            - 'node_modules'
-            - 'dist'
+          path: 'node_modules'
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Cache project build
+        uses: actions/cache@v2
+        with:
+          path: 'dist'
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
 
       - name: Use Node.js 12.x
         uses: actions/setup-node@v2
@@ -79,7 +83,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: 'dist'
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install Node.js
         uses: actions/setup-node@v1
