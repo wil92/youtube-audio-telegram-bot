@@ -2,3 +2,4 @@ node_modules
 .idea
 *.mp3
 .env
+dist

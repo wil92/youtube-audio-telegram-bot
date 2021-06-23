@@ -1,7 +1,8 @@
-const chai = require('chai')
-const { hasYoutubeLink } = require('../../src/lib/utils')
+import * as chai from 'chai';
 
-const expect = chai.expect
+import {hasYoutubeLink} from "../../src/lib/utils";
+
+const expect = chai.expect;
 
 describe('hasYoutubeLink', function () {
   it('should test default values', function () {
@@ -24,4 +25,4 @@ describe('hasYoutubeLink', function () {
     expect(hasYoutubeLink('asdf 34f2d wfsdf asdf'))
         .to.be.false;
   });
-})
+});

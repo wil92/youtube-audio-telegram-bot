@@ -5,4 +5,4 @@ then
     export $(cat .env | xargs)
 fi
 
-node
+node ./dist/main.js

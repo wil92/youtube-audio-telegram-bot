@@ -1,7 +1,8 @@
-const chai = require('chai')
-const { extractYoutubeLink } = require('../../src/lib/utils')
+import * as chai from 'chai';
 
-const expect = chai.expect
+import {extractYoutubeLink} from "../../src/lib/utils";
+
+const expect = chai.expect;
 
 describe('extractYoutubeLink', function () {
   it('should extract default values', function () {
@@ -24,4 +25,4 @@ describe('extractYoutubeLink', function () {
     expect(extractYoutubeLink('asdf asdf asdf asdfasdf asdf'))
         .to.be.equal(null);
   });
-})
+});
