@@ -3,3 +3,6 @@ node_modules
 *.mp3
 .env
 dist
+
+coverage
+.nyc_output
