@@ -5,9 +5,19 @@
 This is a simple telegram bot that given a youtube link shared in a telegram channel, download the video, extract the
  audio and publish it back in the channel.
 
+![](./example-image.png)
+
+## Install dependencies
+
+```
+npm install
+```
+
 ## Start locally
 
-
+- Install [youtube-dl](https://github.com/ytdl-org/youtube-dl)
+- Build project: `npm run build`
+- Start project: `./run.sh <bot-secret>`
 
 ## Start project with docker
 
