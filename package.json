@@ -1,6 +1,6 @@
 {
   "name": "youtube-upload-audio-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "telegram bot for upload audios from youtube videos",
   "main": "./src/main.js",
   "scripts": {
@@ -13,12 +13,14 @@
   },
   "author": "wil92",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@types/chai": "^4.2.19",
     "@types/form-data": "^2.5.0",
     "@types/mocha": "^8.2.2",
     "@types/node": "^15.12.4",
     "chai": "^4.2.0",
+    "form-data": "^3.0.0",
+    "nyc": "^15.1.0",
     "mocha": "^8.2.1",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
@@ -26,9 +28,5 @@
     "typescript": "^4.3.4",
     "webpack": "^5.40.0",
     "webpack-cli": "^4.7.2"
-  },
-  "dependencies": {
-    "form-data": "^3.0.0",
-    "nyc": "^15.1.0"
   }
 }

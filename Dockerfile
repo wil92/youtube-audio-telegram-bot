@@ -29,6 +29,7 @@ WORKDIR /downloads
 
 COPY dist ./dist
 COPY package.json ./
+COPY run.sh ./
 
 # Basic check.
 RUN dumb-init youtube-dl --version
