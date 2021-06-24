@@ -1,5 +1,4 @@
-import {TelegramUpdatesResult} from "../models/telegramUpdatesResult";
-import {GetUpdateRequest} from "../models/getUpdateRequest";
+import {TelegramUpdatesResult, GetUpdateRequest} from "../models";
 import {get, objectToQueryParams} from "../utils";
 import {config} from "./config";
 

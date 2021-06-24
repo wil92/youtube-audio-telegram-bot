@@ -4,12 +4,12 @@ import {arrayToQuery} from "../../src/lib/utils";
 
 const expect = chai.expect;
 
-describe('arrayToQuery', function () {
-    it('should get a valid list', function () {
+describe('arrayToQuery', () => {
+    it('should get a valid list', () => {
         expect(arrayToQuery(['some', 'that'])).to.equal('["some","that"]');
     });
 
-    it('should return an empty string', function () {
+    it('should return an empty string', () => {
         expect(arrayToQuery()).to.equal('[]');
     });
 });

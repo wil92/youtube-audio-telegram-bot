@@ -1,4 +1,4 @@
-import {DeleteRequest} from "../models/deleteRequest";
+import {DeleteRequest} from "../models";
 import {get, objectToQueryParams} from "../utils";
 import {config} from "./config";
 

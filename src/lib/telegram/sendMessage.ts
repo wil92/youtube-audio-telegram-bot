@@ -1,4 +1,4 @@
-import {SendMessageRequest} from "../models/sendMessageRequest";
+import {SendMessageRequest} from "../models";
 import {objectToQueryParams, postMethod} from "../utils";
 import {config} from "./config";
 

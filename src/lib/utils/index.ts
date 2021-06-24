@@ -3,8 +3,5 @@ export * from './get';
 export * from './postMethod';
 export * from './delete';
 export * from './objectToQueryParams';
-export * from './hasYoutubeLink';
-export * from './extractYoutubeLink';
 export * from './toReadableSize';
-export * from './toMP3';
 export * from './isAudio';
