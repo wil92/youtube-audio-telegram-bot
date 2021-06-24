@@ -28,6 +28,7 @@ ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 WORKDIR /downloads
 
 COPY dist ./dist
+COPY package.json ./
 
 # Basic check.
 RUN dumb-init youtube-dl --version
