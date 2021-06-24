@@ -57,15 +57,15 @@ jobs:
         with:
           node-version: '12.x'
 
-#      - name: Install codecov dependency
-#        run: npm install -g codecov
+      - name: Install codecov dependency
+        run: npm install -g codecov
 
       # pipeline actions
       - run: npm run lint
-      - run: npm test
-#      - run: codecov
-#        env:
-#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - run: npm run test:cov
+      - run: codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 
 # DEPLOY PROJECT
