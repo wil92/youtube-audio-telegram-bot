@@ -32,4 +32,4 @@ COPY dist ./dist
 # Basic check.
 RUN dumb-init youtube-dl --version
 
-CMD ["node", "./dist/main.js"]
+CMD ["npm", "start"]
