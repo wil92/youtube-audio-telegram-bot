@@ -110,20 +110,20 @@ export class Process {
     }
 
     checkYoutubeLink(elem: UpdateItem): boolean {
-        return (elem.channel_post && this.hasYoutubeLink(elem.channel_post.text)) ||
-            (elem.message && this.hasYoutubeLink(elem.message.text));
+        return (elem.channel_post && this.isYoutubeLinkInText(elem.channel_post.text)) ||
+            (elem.message && this.isYoutubeLinkInText(elem.message.text));
     }
 
-    hasYoutubeLink(value: string = ''): boolean {
+    isYoutubeLinkInText(value: string = ''): boolean {
         const result = this.telegram.config.regexpYoutubeLink.exec(value);
         return !!(result && result[0]);
     }
 
-    toMP3(value: string = '') {
+    toMP3(value: string = ''): string {
         return value.trim().replace(/\.\w+$/, '.mp3');
     }
 
-    extractYoutubeLink(value: string = '') {
+    extractYoutubeLink(value: string = ''): string | null {
         const result = this.telegram.config.regexpYoutubeLink.exec(value);
         return result && result[0];
     }
