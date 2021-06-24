@@ -5,6 +5,7 @@
   "main": "./src/main.js",
   "scripts": {
     "start": "./run.sh",
+    "dev": "ts-node ./src/main.ts",
     "test": "mocha -r ts-node/register --ui bdd ./test/**/*.ts",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "build": "webpack"

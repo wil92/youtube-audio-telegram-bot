@@ -15,4 +15,10 @@ describe('toMP3', function () {
     expect(toMP3(value))
       .to.equal('MIRA POR QUÉ...-rIbRa0pwfhA.mp3');
   });
+
+  it('should correct the file name 3', function () {
+    const value = 'El video más corto del mundo-bQL2FsHe7G4.webm'
+    expect(toMP3(value))
+      .to.equal('El video más corto del mundo-bQL2FsHe7G4.mp3');
+  });
 });

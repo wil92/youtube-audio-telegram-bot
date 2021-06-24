@@ -27,10 +27,6 @@ ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
 WORKDIR /downloads
 
-COPY package*.json ./
-
-RUN npm install --production
-
 COPY dist ./dist
 
 # Basic check.

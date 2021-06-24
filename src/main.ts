@@ -29,7 +29,7 @@ async function getUpdates(
 }
 
 function uploadAudio(audioName: string, chatId: number) {
-    return telegram.sendAudio({chat_id: chatId}, path.join(__dirname, audioName))
+    return telegram.sendAudio({chat_id: chatId}, path.join(__dirname, '..', audioName))
 }
 
 function removeAudio(audioName: string): void {
@@ -86,11 +86,11 @@ async function process() {
 
                 await telegram.sendMessage({chat_id: getChatId(elem), text: getMessageText(elem)});
                 await uploadAudio(fileName, getChatId(elem));
-                await removeAudio(path.join(__dirname, fileName));
+                await removeAudio(path.join(__dirname, '..', fileName));
             } catch (error) {
                 console.error(error);
             }
-        } else if (!checkYoutubeLink(elem)) {
+        } else if (!checkYoutubeLink(elem) && !markedPost.has(elem.update_id)) {
             console.info(`Not valid youtube link in the update number: ${elem.update_id}`)
         }
     }
@@ -101,9 +101,7 @@ async function process() {
 
 getUpdates().then((res: UpdateItem[]) => {
     res.forEach(elem => {
-        if (checkYoutubeLink(elem)) {
-            markedPost.add(elem.update_id);
-        }
+        markedPost.add(elem.update_id);
     });
     setTimeout(process, config.updateInterval);
 });
