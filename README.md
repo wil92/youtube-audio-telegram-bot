@@ -22,9 +22,13 @@ npm install
 ## Start project with docker
 
 ```
+# first build the project
+npm run build
+
+# then start the docker container with the script
 ./start-docker.sh <bot-secret>
 
-# to see options use this command
+# to see options, use this command
 ./start-docker.sh -h
 ```
 
