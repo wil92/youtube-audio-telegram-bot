@@ -1,4 +1,5 @@
 [![codecov](https://codecov.io/gh/wil92/youtube-audio-telegram-bot/branch/master/graph/badge.svg?token=PN6ABNY03S)](https://codecov.io/gh/wil92/youtube-audio-telegram-bot)
+[![Node.js CI](https://github.com/wil92/youtube-audio-telegram-bot/actions/workflows/node.js.yml/badge.svg)](https://github.com/wil92/youtube-audio-telegram-bot/actions/workflows/node.js.yml)
 
 # Youtube upload audio bot (Telegram)
 
