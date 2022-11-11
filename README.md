@@ -18,7 +18,7 @@ npm install
 
 - Install [youtube-dl](https://github.com/ytdl-org/youtube-dl) ffmpeg
 - Build project: `npm run build`
-- Start project: `./run.sh <bot-token>`  tip: Create bot and get token by https://t.me/BotFather
+- Start project: `./run.sh <bot-token>`  (tip: Create bot and get token by https://t.me/BotFather)
  
 
 ## Start project with docker
